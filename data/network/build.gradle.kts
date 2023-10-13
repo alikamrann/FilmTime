@@ -7,7 +7,8 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     id("kotlinx-serialization")
-
+    kotlin("kapt")
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -45,6 +46,7 @@ android {
     buildFeatures {
         buildConfig = true
     }
+    
 }
 
 dependencies {
@@ -58,4 +60,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(libs.hilt.android)
+    implementation(libs.dagger.hilt.android.compiler)
 }

@@ -2,8 +2,9 @@ package io.filmtime.data.tmdb.movies
 
 import io.filmtime.data.api.tmdb.TmdbMoviesRemoteSource
 import io.filmtime.data.model.VideoThumbnail
+import javax.inject.Inject
 
-internal class TmdbMovieRepositoryImpl(private val tmdbMoviesRemoteSource: TmdbMoviesRemoteSource) :
+internal class TmdbMovieRepositoryImpl @Inject constructor(private val tmdbMoviesRemoteSource: TmdbMoviesRemoteSource) :
     TmdbMovieRepository {
     override suspend fun getMovieDetails(movieId: Int): VideoThumbnail =
         tmdbMoviesRemoteSource.getMovieDetails(movieId)

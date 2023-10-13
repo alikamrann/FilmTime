@@ -8,9 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import io.filmtime.feature.movie.detail.MovieDetailScreen
 import io.filmtime.feature.movie.detail.MovieDetailViewModel
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -18,7 +21,7 @@ class MainActivity : ComponentActivity() {
     setContent {
       Surface(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.background) {
 
-        MovieDetailScreen(viewModel = viewModel)
+        MovieDetailScreen(viewModel = hiltViewModel())
       }
     }
   }

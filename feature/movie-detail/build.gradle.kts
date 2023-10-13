@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    kotlin("kapt")
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -61,4 +63,8 @@ dependencies {
 
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.viewmodel.compose.runtime)
+
+    //dagger
+    implementation(libs.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
 }
