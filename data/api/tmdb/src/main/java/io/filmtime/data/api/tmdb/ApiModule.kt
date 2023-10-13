@@ -11,6 +11,7 @@ internal abstract class ApiModule {
 
     @Binds
     abstract fun bindTmdbMovieService(
-        impl: TmdbMoviesRemoteSourceImpl
+        impl: TmdbMoviesRemoteSourceImpl,
     ): TmdbMoviesRemoteSource
+
 }

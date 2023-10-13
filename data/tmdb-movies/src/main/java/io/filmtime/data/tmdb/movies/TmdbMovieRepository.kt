@@ -4,5 +4,5 @@ import io.filmtime.data.model.VideoThumbnail
 
 interface TmdbMovieRepository {
 
-    suspend fun getMovieDetails(movieId:Int): VideoThumbnail
+    suspend fun getMovieDetails(movieId: Int): VideoThumbnail
 }

@@ -1,9 +1,10 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+
     kotlin("kapt")
-    alias(libs.plugins.hilt.android)
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -20,10 +21,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -39,14 +37,14 @@ dependencies {
 
     implementation(project(":data:model"))
     implementation(project(":data:tmdb-movies"))
+
+    implementation(libs.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
+
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    //dagger
-    implementation(libs.hilt.android)
-    kapt(libs.dagger.hilt.android.compiler)
 }

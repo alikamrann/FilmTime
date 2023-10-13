@@ -11,16 +11,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-    private val getMovieDetail : GetMovieDetailsUseCase
+    private val getMovieDetail: GetMovieDetailsUseCase,
 ) : ViewModel() {
 
-    private val _state : MutableStateFlow<MovieDetailState> = MutableStateFlow(MovieDetailState())
+    private val _state: MutableStateFlow<MovieDetailState> = MutableStateFlow(MovieDetailState())
     val state = _state.asStateFlow()
 
     init {
         load(550)
     }
-    fun load(videoId : Int) = viewModelScope.launch {
+
+    fun load(videoId: Int) = viewModelScope.launch {
         _state.value = _state.value.copy(isLoading = true)
         val result = getMovieDetail(videoId)
         _state.value = _state.value.copy(videoThumbnail = result, isLoading = false)

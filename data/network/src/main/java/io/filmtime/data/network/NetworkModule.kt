@@ -16,7 +16,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesJson():Json{
+    fun providesJson(): Json {
         return Json {
             ignoreUnknownKeys = true
         }
@@ -24,20 +24,18 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRetrofit(json:Json): Retrofit{
+    fun providesRetrofit(
+        json: Json,
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
-            .addConverterFactory(
-                json.asConverterFactory(
-                    MediaType.get("application/json")
-                    ,),
-            )
+            .addConverterFactory(json.asConverterFactory(MediaType.get("application/json")))
             .build()
     }
 
     @Provides
     @Singleton
-    fun providesTmdbService(retrofit: Retrofit):TmdbMoviesService{
+    fun providesTmdbMovieService(retrofit: Retrofit): TmdbMoviesService {
         return retrofit.create(TmdbMoviesService::class.java)
     }
 }

@@ -2,7 +2,8 @@
 plugins {
   alias(libs.plugins.com.android.application)
   alias(libs.plugins.org.jetbrains.kotlin.android)
-  id("com.diffplug.spotless") version "6.22.0"
+  id("com.diffplug.spotless") version "6.18.0"
+
   kotlin("kapt")
   alias(libs.plugins.hilt.android)
 }
@@ -14,7 +15,7 @@ android {
   defaultConfig {
     applicationId = "io.filmtime"
     minSdk = 27
-    targetSdk = 33
+    targetSdk = 34
     versionCode = 1
     versionName = "1.0"
 
@@ -22,6 +23,11 @@ android {
     vectorDrawables {
       useSupportLibrary = true
     }
+  }
+
+  // Allow references to generated code
+  kapt {
+    correctErrorTypes = true
   }
 
   buildTypes {
@@ -42,7 +48,6 @@ android {
   }
   buildFeatures {
     compose = true
-    buildConfig = true
   }
   composeOptions {
     kotlinCompilerExtensionVersion = "1.5.3"
@@ -52,11 +57,7 @@ android {
       excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
   }
-  packagingOptions {
-    exclude("META-INF/gradle/incremental.annotation.processors")
-  }
 }
-
 
 dependencies {
 
@@ -69,6 +70,12 @@ dependencies {
   implementation(libs.ui.graphics)
   implementation(libs.ui.tooling.preview)
   implementation(libs.material3)
+
+  implementation(libs.hilt.android)
+  kapt(libs.dagger.hilt.android.compiler)
+
+  implementation(libs.androidx.hilt.navigation.compose)
+
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.test.ext.junit)
   androidTestImplementation(libs.espresso.core)
@@ -76,15 +83,8 @@ dependencies {
   androidTestImplementation(libs.ui.test.junit4)
   debugImplementation(libs.ui.tooling)
   debugImplementation(libs.ui.test.manifest)
-  //dagger
-  implementation(libs.hilt.android)
-  kapt(libs.dagger.hilt.android.compiler)
+}
 
-  implementation(libs.androidx.hilt.navigation.compose)
-}
-kapt {
-  correctErrorTypes = true
-}
 spotless {
   kotlin {
     target("**/*.kt", "**/*.kts")
